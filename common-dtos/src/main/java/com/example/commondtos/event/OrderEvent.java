@@ -17,4 +17,8 @@ public class OrderEvent implements Event {
     private Date date = new Date();
     private OrderRequestDTO orderRequestDTO;
     private OrderStatus orderStatus;
+    public OrderEvent(OrderRequestDTO orderRequestDTO, OrderStatus orderStatus) {
+        this.orderRequestDTO = orderRequestDTO;
+        this.orderStatus = orderStatus;
+    }
 }

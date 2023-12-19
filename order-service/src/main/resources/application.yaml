@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    stream:
+      function:
+        definition : orderSupplier
+      bindings:
+        orderSupplier-out-0:
+          destination: order-event
+
+
+server:
+  port: 8082
