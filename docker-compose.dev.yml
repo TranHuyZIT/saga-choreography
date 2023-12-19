@@ -1,0 +1,29 @@
+name: saga-choreography-dev
+services:
+  order-mysql:
+    image: mysql:latest
+    restart: always
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./order-service/orderdb:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456789
+      MYSQL_DATABASE: orderdb
+      MYSQL_PASSWORD: 123456789
+    networks:
+      - app-network
+  orderdb-admin:
+    image: phpmyadmin
+    ports:
+      - 8081:80
+    depends_on:
+      - order-mysql
+    networks:
+      - app-network
+    environment:
+      PMA_HOST: order-mysql
+      UPLOAD_LIMIT: 300M
+networks:
+  app-network:
+    driver: bridge
