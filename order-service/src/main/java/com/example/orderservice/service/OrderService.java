@@ -24,11 +24,11 @@ public class OrderService {
                 .price(orderRequestDto.getAmount())
                 .orderStatus(OrderStatus.ORDER_CREATED)
                 .build();
+        purchaseOrder = purchaseOrderRepository.save(purchaseOrder);
         orderRequestDto.setOrderId(purchaseOrder.getId());
         // Send Kafka event to payment service
         orderStatusPublisher.publishOrderEvent(orderRequestDto, OrderStatus.ORDER_CREATED);
-
-        return purchaseOrderRepository.save(purchaseOrder);
+        return purchaseOrder;
     }
 
     public List<PurchaseOrder> getAllOrders() {

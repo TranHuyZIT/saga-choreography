@@ -20,6 +20,7 @@ public class PaymentConsumerConfig {
 
     @Bean
     public Function<Flux<OrderEvent>, Flux<PaymentEvent>> paymentProcessor() {
+        System.out.println("PaymentService.processPayment");
         return orderEventFlux -> orderEventFlux.flatMap(this::processPayment);
     }
 

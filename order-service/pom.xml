@@ -22,12 +22,12 @@
             <artifactId>spring-cloud-stream</artifactId>
             <version>4.1.0</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-stream-binder-kafka</artifactId>
+            <artifactId>spring-cloud-starter-stream-kafka</artifactId>
             <version>4.1.0</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>

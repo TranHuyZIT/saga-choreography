@@ -11,16 +11,12 @@ services:
       MYSQL_ROOT_PASSWORD: 123456789
       MYSQL_DATABASE: orderdb
       MYSQL_PASSWORD: 123456789
-    networks:
-      - app-network
   orderdb-admin:
     image: phpmyadmin
     ports:
       - 8081:80
     depends_on:
       - order-mysql
-    networks:
-      - app-network
     environment:
       PMA_HOST: order-mysql
       UPLOAD_LIMIT: 300M
@@ -35,19 +31,47 @@ services:
       MYSQL_ROOT_PASSWORD: 123456789
       MYSQL_DATABASE: paymentdb
       MYSQL_PASSWORD: 123456789
-    networks:
-      - app-network
   paymentdb-admin:
     image: phpmyadmin
     ports:
       - 8083:80
     depends_on:
       - payment-mysql
-    networks:
-      - app-network
     environment:
       PMA_HOST: payment-mysql
       UPLOAD_LIMIT: 300M
-networks:
-  app-network:
-    driver: bridge
+  zookeeper:
+    image: zookeeper
+    restart: always
+    container_name: zookeeper
+    hostname: zookeeper
+    ports:
+      - 2181:2181
+    environment:
+      ZOO_MY_ID: 1
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+  kafka_manager:
+    image: hlebalbau/kafka-manager:stable
+    container_name: kakfa-manager
+    restart: always
+    ports:
+      - "9000:9000"
+    depends_on:
+      - zookeeper
+      - kafka
+    environment:
+      ZK_HOSTS: "zookeeper:2181"
+      APPLICATION_SECRET: "random-secret"
+      command: -Dpidfile.path=/dev/null
+#  payment-service:
+#    build: ./payment-service
+#    volumes:
+#      - ./payment-service:/app
+

@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    stream:
+      function:
+        definition : orderSupplier;paymentEventConsumer
+      bindings:
+        orderSupplier-out-0:
+          destination: order-event
+        paymentEventConsumer-in-0 :
+          destination: payment-event
+
+logging:
+  level:
+    org.springframework.cloud.stream: DEBUG
+    org.apache.kafka: DEBUG
+
+
+server:
+  port: 8082
