@@ -17,4 +17,8 @@ public class PaymentEvent implements Event{
     private Date date = new Date();
     private PaymentRequestDTO paymentRequestDTO;
     private PaymentStatus paymentStatus;
+    public PaymentEvent(PaymentRequestDTO paymentRequestDTO, PaymentStatus paymentStatus) {
+        this.paymentRequestDTO = paymentRequestDTO;
+        this.paymentStatus = paymentStatus;
+    }
 }
