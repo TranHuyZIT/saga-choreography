@@ -8,16 +8,18 @@ import com.example.orderservice.entity.PurchaseOrder;
 import com.example.orderservice.repository.PurchaseOrderRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Consumer;
 
 @Configuration
-@RequiredArgsConstructor
 public class OrderConsumerHandler {
-    private final PurchaseOrderRepository orderRepository;
-    private final OrderStatusPublisher publisher;
+    @Autowired
+    private PurchaseOrderRepository orderRepository;
+    @Autowired
+    private OrderStatusPublisher publisher;
 
     @Transactional
     public void updateOrder(Integer id, Consumer<PurchaseOrder> consumer){

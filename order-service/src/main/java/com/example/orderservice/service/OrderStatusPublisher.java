@@ -14,7 +14,7 @@ import reactor.core.publisher.Sinks;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class OrderStatusPublisher {
     @Autowired
-    private Sinks.Many<OrderEvent> orderSinks;
+    private Sinks.Many<OrderEvent> orderSinks = Sinks.many().multicast().onBackpressureBuffer();
 
     public void publishOrderEvent(OrderRequestDTO orderRequestDto, OrderStatus orderStatus){
         System.out.println(orderSinks);

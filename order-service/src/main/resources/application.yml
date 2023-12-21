@@ -1,5 +1,7 @@
 spring:
   cloud:
+    function:
+      definition: orderSupplier;paymentEventConsumer
     stream:
       function:
         definition : orderSupplier;paymentEventConsumer
@@ -8,11 +10,6 @@ spring:
           destination: order-event
         paymentEventConsumer-in-0 :
           destination: payment-event
-
-logging:
-  level:
-    org.springframework.cloud.stream: DEBUG
-    org.apache.kafka: DEBUG
 
 
 server:
